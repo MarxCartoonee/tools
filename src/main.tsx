@@ -1,10 +1,59 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App'
-import './index.css'
+import '98.css';
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import App from './App';
+import './index.css';
+import { Bank, Cesar, Dutch, Goofs, Home, Horses, Jwt, Swedish } from './pages';
+
+const router = createBrowserRouter(
+  [
+    {
+      path: '/',
+      element: <App />,
+      children: [
+        {
+          path: '',
+          element: <Home />,
+        },
+        {
+          path: 'bank',
+          element: <Bank />,
+        },
+        {
+          path: 'jwt',
+          element: <Jwt />,
+        },
+        {
+          path: 'goofs',
+          element: <Goofs />,
+        },
+        {
+          path: 'swedish',
+          element: <Swedish />,
+        },
+        {
+          path: 'dutch',
+          element: <Dutch />,
+        },
+        {
+          path: 'horses',
+          element: <Horses />,
+        },
+        {
+          path: 'cesar',
+          element: <Cesar />,
+        },
+      ],
+    },
+  ],
+  {
+    basename: '/tools/',
+  }
+);
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <App />
+    <RouterProvider router={router}></RouterProvider>
   </React.StrictMode>
-)
+);
