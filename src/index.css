@@ -15,8 +15,6 @@ textarea[readOnly] {
 .window-body.io-body {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  /* align-items: end; */
-  /* align-content: start; */
   gap: 16px;
 }
 
