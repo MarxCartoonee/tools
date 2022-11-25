@@ -17,6 +17,7 @@
     "lodash": "^4.17.21",
     "pako": "^2.1.0",
     "react": "^18.2.0",
+    "react-css-theme-switcher": "^0.3.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.4.3",
     "rollup-plugin-react-scoped-css": "^0.7.0",
@@ -29,6 +30,7 @@
     "@types/react-dom": "^18.0.8",
     "@vitejs/plugin-react": "^2.2.0",
     "gh-pages": "^4.0.0",
+    "sass": "^1.56.1",
     "typescript": "^4.6.4",
     "vite": "^3.2.3"
   }

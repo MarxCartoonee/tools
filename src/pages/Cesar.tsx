@@ -45,7 +45,7 @@ function Cesar() {
         </div>
       </div>
       <div className="window-body io-body">
-        <div className="input-wrapper">
+        <fieldset className="input-wrapper">
           <div className="field-row-stacked">
             <label>English</label>
             <textarea
@@ -62,11 +62,13 @@ function Cesar() {
               onChange={(e) => setRot(+e.target.value)}
             />
           </div>
-        </div>
-        <div className="field-row-stacked">
-          <label>Swedish</label>
-          <textarea readOnly value={output}></textarea>
-        </div>
+        </fieldset>
+        <fieldset className="output-wrapper">
+          <div className="field-row-stacked">
+            <label>Swedish</label>
+            <textarea readOnly value={output}></textarea>
+          </div>
+        </fieldset>
       </div>
     </div>
   );

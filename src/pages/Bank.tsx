@@ -45,14 +45,16 @@ function Bank() {
         </div>
       </div>
       <div className="window-body">
-        <div className="field-row">
-          <label>Bank account number</label>
-          <input
-            type="text"
-            value={value}
-            onChange={(e) => setValue(e.target.value)}
-          />
-        </div>
+        <fieldset className="input-wrapper">
+          <div className="field-row">
+            <label>Bank account number</label>
+            <input
+              type="text"
+              value={value}
+              onChange={(e) => setValue(e.target.value)}
+            />
+          </div>
+        </fieldset>
       </div>
       <div className="status-bar">
         {error ? (

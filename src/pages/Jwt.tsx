@@ -47,13 +47,16 @@ function Jwt() {
         </div>
       </div>
       <div className="window-body io-body">
-        <div className="field-row-stacked">
-          <textarea
-            value={token}
-            onChange={(e) => writeToken(e.target.value)}
-          ></textarea>
-        </div>
-        <div className="output-wrapper">
+        <fieldset className="input-wrapper">
+          <div className="field-row-stacked">
+            <label>JWT Token</label>
+            <textarea
+              value={token}
+              onChange={(e) => writeToken(e.target.value)}
+            ></textarea>
+          </div>
+        </fieldset>
+        <fieldset className="output-wrapper">
           <div className="field-row-stacked">
             <label>Header</label>
             <textarea readOnly value={header}></textarea>
@@ -66,7 +69,7 @@ function Jwt() {
             <label>Signature</label>
             <textarea readOnly value={signature}></textarea>
           </div>
-        </div>
+        </fieldset>
       </div>
     </div>
   );

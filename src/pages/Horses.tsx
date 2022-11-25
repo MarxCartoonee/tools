@@ -1,5 +1,5 @@
 import { capitalize, chunk, random } from 'lodash';
-import { useCallback, useEffect, useReducer, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Strings from '../shared/strings';
 import './Horses.scoped.css';
@@ -56,18 +56,15 @@ function readLocalStorage<D>(key: string): D | null {
   return value ? (JSON.parse(value) as D) : null;
 }
 
-const modeReducer = (_: unknown, mode: Mode) => mode;
+function writeLocalStorage<D>(key: string, value: D): void {
+  localStorage.setItem(key, JSON.stringify(value));
+}
+
 const initialMode = readLocalStorage<Mode>('mode') || Mode.hlhm;
-const accurateClockReducer = (_: unknown, accurateClock: boolean) =>
-  accurateClock;
 const initialAccurateClock =
   readLocalStorage<boolean>('accurateClock') || false;
-const totalInsanityReducer = (_: unknown, totalInsanity: boolean) =>
-  totalInsanity;
 const initialTotalInsanity =
   readLocalStorage<boolean>('totalInsanity') || false;
-const compoundCountReducer = (_: unknown, compoundCount: number) =>
-  compoundCount;
 const initialCompoundCount =
   readLocalStorage<number>('compoundCount') || minLengths[Mode.hlhm];
 
@@ -141,31 +138,22 @@ function compose(
 }
 
 function Horses() {
-  const [mode, setMode] = useReducer(modeReducer, initialMode);
-  const [accurateClock, setAccurateClock] = useReducer(
-    accurateClockReducer,
-    initialAccurateClock
-  );
-  const [totalInsanity, setTotalInsanity] = useReducer(
-    totalInsanityReducer,
-    initialTotalInsanity
-  );
-  const [compoundCount, setCompoundCount] = useReducer(
-    compoundCountReducer,
-    initialCompoundCount
-  );
-
-  const [title, setTitle] = useState<string>();
+  const [mode, setMode] = useState(initialMode);
+  const [accurateClock, setAccurateClock] = useState(initialAccurateClock);
+  const [totalInsanity, setTotalInsanity] = useState(initialTotalInsanity);
+  const [compoundCount, setCompoundCount] = useState(initialCompoundCount);
+  const [title, setTitle] = useState<string>('');
   const [output, _setOutput] = useState('');
 
   useEffect(() => {
-    localStorage.setItem('mode', JSON.stringify(mode));
+    writeLocalStorage('mode', mode);
+    setTitle(titles[mode]);
   }, [mode]);
   useEffect(() => {
-    localStorage.setItem('accurateClock', JSON.stringify(accurateClock));
+    writeLocalStorage('accurateClock', accurateClock);
   }, [accurateClock]);
   useEffect(() => {
-    localStorage.setItem('totalInsanity', JSON.stringify(totalInsanity));
+    writeLocalStorage('totalInsanity', totalInsanity);
   }, [totalInsanity]);
   useEffect(() => {
     const count = Math.max(compoundCount, minLengths[mode]);
@@ -173,11 +161,8 @@ function Horses() {
       setCompoundCount(count);
       return;
     }
-    localStorage.setItem('compoundCount', JSON.stringify(count));
+    writeLocalStorage('compoundCount', count);
   }, [compoundCount, mode]);
-  useEffect(() => {
-    setTitle(titles[mode]);
-  }, [mode]);
 
   const setOutput = useCallback(() => {
     _setOutput(compose(mode, accurateClock, totalInsanity, compoundCount));
@@ -185,7 +170,7 @@ function Horses() {
 
   useEffect(() => {
     setOutput();
-  }, [mode, accurateClock, totalInsanity, compoundCount, setOutput]);
+  }, [setOutput]);
 
   return (
     <div className="window">
@@ -200,7 +185,7 @@ function Horses() {
         </div>
       </div>
       <div className="window-body io-body">
-        <div className="input-wrapper">
+        <fieldset className="input-wrapper">
           <div className="field-row mode-select">
             <label>Mode</label>
             <select
@@ -239,7 +224,7 @@ function Horses() {
             </div>
           )}
           <button onClick={() => setOutput()}>Generate</button>
-        </div>
+        </fieldset>
         <div className="field-row-stacked">
           <textarea readOnly value={output}></textarea>
         </div>

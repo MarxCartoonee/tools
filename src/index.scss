@@ -1,0 +1,46 @@
+body {
+  margin: 0;
+  background: #c0c0c0;
+}
+
+blockquote {
+  background: #dfdfdf;
+  padding: 20px;
+  margin: 0;
+}
+
+textarea[readOnly] {
+  resize: none;
+}
+
+.window {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+  .window-body {
+    flex-grow: 2;
+
+    &.io-body {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+
+      > .field-row-stacked {
+        margin: 0;
+      }
+    }
+  }
+
+  .status-bar {
+    margin-top: auto;
+  }
+}
+
+.field-row-stacked {
+  display: grid;
+  grid-auto-flow: row;
+}
+
+.field-row > input {
+  width: 100%;
+}

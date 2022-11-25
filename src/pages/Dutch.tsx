@@ -37,17 +37,21 @@ function Dutch() {
         </div>
       </div>
       <div className="window-body io-body">
-        <div className="field-row-stacked">
-          <label>English</label>
-          <textarea
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-          ></textarea>
-        </div>
-        <div className="field-row-stacked">
-          <label>Dutch</label>
-          <textarea readOnly value={output}></textarea>
-        </div>
+        <fieldset className="input-wrapper">
+          <div className="field-row-stacked">
+            <label>English</label>
+            <textarea
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+            ></textarea>
+          </div>
+        </fieldset>
+        <fieldset className="output-wrapper">
+          <div className="field-row-stacked">
+            <label>Dutch</label>
+            <textarea readOnly value={output}></textarea>
+          </div>
+        </fieldset>
       </div>
     </div>
   );

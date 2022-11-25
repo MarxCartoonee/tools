@@ -1,3 +1,8 @@
+.input-wrapper > .field-row-stacked {
+  height: 100%;
+  grid-template-rows: max-content auto;
+}
+
 .output-wrapper {
   display: flex;
   flex-flow: column nowrap;

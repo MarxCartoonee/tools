@@ -3,3 +3,8 @@
   grid-auto-flow: row;
   justify-content: stretch;
 }
+
+.output-wrapper > .field-row-stacked {
+  height: 100%;
+  grid-template-rows: max-content auto;
+}
