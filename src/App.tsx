@@ -1,23 +1,36 @@
-import { useRef, useState } from 'react';
+import { useCallback, useState } from 'react';
 import './App.css';
 
 function App() {
-  const [count, setCount] = useState(0);
-  const input = useRef<HTMLInputElement>(null);
+  const [value, setValue] = useState('');
 
-  function formatInput(inputValue: string): string {
-    const raw = inputValue.replaceAll(/[^\d]/g, '');
+  const formatInput = useCallback((): string => {
+    if (value == null) {
+      return 'Loading...';
+    }
+    const raw = value.replaceAll(/[^\d]/g, '');
+    console.debug({ raw });
     if (raw.length > 18) {
-      throw new Error('Too many digits');
+      return 'Input is too long';
     }
     const groups = /(\d{3})(\d{0,13})(\d{2})/.exec(raw)!;
-    return groups.slice(1).join('-');
-  }
+    if (groups == null) {
+      return 'No valid match';
+    }
+    return groups
+      .slice(1)
+      .map((v, i) => (i === 1 ? v.padStart(13, '0') : v))
+      .join('-');
+  }, [value]);
 
   return (
     <div className="App">
-      <input type="text" ref={input} />
-      <p>{formatInput(input.current!.value)}</p>
+      <input
+        type="text"
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+      />
+      <p>{formatInput()}</p>
     </div>
   );
 }
